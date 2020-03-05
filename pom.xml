@@ -11,6 +11,8 @@
     <modules>
         <module>mybatis_annotation</module>
         <module>mybatis_xml</module>
+        <module>Spring_xml</module>
+        <module>Spring_Annotation</module>
     </modules>
 
 </project>
