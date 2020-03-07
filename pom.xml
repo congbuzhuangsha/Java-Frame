@@ -13,6 +13,8 @@
         <module>mybatis_xml</module>
         <module>Spring_xml</module>
         <module>Spring_Annotation</module>
+        <module>spring_iocxml_accounttest</module>
+        <module>spring_iocanno_account</module>
     </modules>
 
 </project>
