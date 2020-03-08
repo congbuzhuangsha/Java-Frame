@@ -20,6 +20,7 @@ import java.util.List;
 @ContextConfiguration(classes = SpringConfig.class)
 public class AccountServiceTest {
     @Autowired
+    //@Qualifier(value = "poxyAccountService")
     private IAccountService accountService;
 
     @Test
@@ -55,5 +56,10 @@ public class AccountServiceTest {
     @Test
     public void testDeleteAccount() {
         accountService.deleteAccount(4);
+    }
+
+    @Test
+    public void testTransfer() {
+        accountService.transfer("aaa", "bbb", 100f);
     }
 }

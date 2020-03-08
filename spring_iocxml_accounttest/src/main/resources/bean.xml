@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--配置service-->
     <bean id="accountService" class="com.yxj.service.impl.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"></property>
-        <property name="txManager" ref="txManger"/>
     </bean>
 
     <bean id="accountDao" class="com.yxj.dao.impl.AccountDaoImpl">
         <property name="runner" ref="runner"/>
-        <property name="connectionUtils" ref="connectionUtils"/>
+        <!--<property name="connectionUtils" ref="connectionUtils"/>-->
     </bean>
 
-    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype"></bean>
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+        <constructor-arg name="ds" ref="proxyDataSource"/>
+    </bean>
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driver}"></property>
         <property name="jdbcUrl" value="${jdbc.url}"></property>
@@ -24,11 +26,49 @@
     <bean id="jdbcUtils" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="jdbcConfig.properties"></property>
     </bean>
-    <bean id="connectionUtils" class="com.yxj.utils.ConnectionUtils">
+
+    <!--******************************************************************************-->
+    <!--用动态代理对象进行事务管理-->
+    <!--<bean id="connectionUtils" class="com.yxj.utils.ConnectionUtils">
         <property name="dataSource" ref="dataSource"/>
-    </bean>
-    <bean id="txManger" class="com.yxj.utils.TransactionManager">
+    </bean>-->
+    <!--<bean id="txManger" class="com.yxj.utils.TransactionManager">
         <property name="connectionUtils" ref="connectionUtils"/>
     </bean>
 
+    <bean id="beanFactory" class="com.yxj.factory.BeanFactory">
+        <property name="accountService" ref="accountService"/>
+        <property name="txManager" ref="txManger"/>
+    </bean>
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"/>-->
+    <!--*************************************************************************************************************-->
+    <bean id="proxyDataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <constructor-arg name="targetDataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="transactionManger" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="proxyDataSource"/>
+    </bean>
+    <!--配置事物的通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManger">
+        <!--配置事务的属性
+        isolation指定事务的隔离级别，默认值是DEFAULT，表示使用数据库的默认隔离级别
+        propagation用于指定事物的传播行为，默认值是REQUIRED，表示一定会有事务，增删改的选择，查询方法可以选择SUPPORT
+        read-only用于指定事务是否只读，只有查询方法才能设置成true，默认值是false，表示读写
+        timeout用于指定事务的超时时间，默认值是-1，表示永不超时，如果指定了数值，以秒为单位
+        no-rollback-for用于指定一个异常，当产生该异常时，事务不回滚，产生其他异常时，事务回滚，没有默认值时表示任何异常都不回滚
+        rollback-for用于指定一个异常，当产生该异常时，事务回滚，产生其他异常时，事务不回滚，没有默认值时表示任何异常都回滚
+        -->
+        <tx:attributes>
+            <tx:method name="*"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--配置Aop-->
+    <aop:config>
+        <aop:pointcut id="pt1" expression="execution(* com.yxj.service.impl.*.*(..))"/>
+        <!--建立切入点表达式和事务通知的对应关系-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"/>
+    </aop:config>
 </beans>

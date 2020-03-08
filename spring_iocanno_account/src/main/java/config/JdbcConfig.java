@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -33,7 +34,7 @@ public class JdbcConfig {
      */
     @Bean(name = "runner")//把当前方法的返回值作为bean对象存入spring的ioc容器中,名称不写默认方法名
     @Scope("prototype")
-    public QueryRunner createQueryRunner(@Qualifier("dataSource") DataSource dataSource) {
+    public QueryRunner createQueryRunner(@Qualifier("dataSourceProxy") DataSource dataSource) {
         return new QueryRunner(dataSource);
     }
 
@@ -42,7 +43,7 @@ public class JdbcConfig {
      *
      * @return
      */
-    @Bean("dataSource")
+    @Bean("dataSourceProxy")
     public DataSource createDataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
@@ -50,7 +51,7 @@ public class JdbcConfig {
             dataSource.setJdbcUrl(url);
             dataSource.setUser(username);
             dataSource.setPassword(password);
-            return dataSource;
+            return new TransactionAwareDataSourceProxy(dataSource);
         } catch (PropertyVetoException e) {
             throw new RuntimeException();
         }

@@ -3,6 +3,7 @@ package config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @Auther: yangxiaojie
@@ -15,8 +16,9 @@ import org.springframework.context.annotation.PropertySource;
  */
 //@Configuration//制定当前类是一个配置类,当配置类作为AnnotationConfigContext对象创建的参数时，该注解可以不写
 @ComponentScan("com.yxj")//用于通过注解指定spring在创建容器时要扫描的包
-@Import(JdbcConfig.class)//用于导入其他的配置类
+@Import({JdbcConfig.class,TransactionConfig.class})//用于导入其他的配置类
 @PropertySource("classpath:jdbcConfig.properties")//指定properties文件的位置，文件的名称和路径classpath类路径下
+@EnableTransactionManagement//开启声明式的事务支持
 public class SpringConfig {
 
 }

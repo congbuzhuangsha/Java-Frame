@@ -19,6 +19,7 @@ import java.util.List;
 @ContextConfiguration(locations = "classpath:bean.xml")
 public class AccountServiceTest {
     @Autowired
+    // @Qualifier(value = "proxyAccountService")
     private IAccountService accountService;
 
     @Test

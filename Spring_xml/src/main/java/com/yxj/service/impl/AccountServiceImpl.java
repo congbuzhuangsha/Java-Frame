@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class AccountServiceImpl implements IAccountService {
     //如果是经常变化的数据,并不适用于注入的方式
-    private String name;
+/*    private String name;
     private Integer age;
     private Date birthday;
 
@@ -20,9 +20,21 @@ public class AccountServiceImpl implements IAccountService {
         this.name = name;
         this.age = age;
         this.birthday = birthday;
+    }*/
+
+    @Override
+    public void saveAccount() {
+        System.out.println("service中的saveAccount方法执行了。。。" );
+    }
+///*************************************************************************
+    @Override
+    public void updateAccount(int i) {
+        System.out.println("执行了更新");
     }
 
-    public void saveAccount() {
-        System.out.println("service中的saveAccount方法执行了。。。"+name+","+age+","+birthday);
+    @Override
+    public int deleteAccount() {
+        System.out.println("执行了删除");
+        return 0;
     }
 }

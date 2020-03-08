@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--把对象的创建交给spring来管理-->
     <!--spring对bean的管理细节
         1.创建bean的三种方式
@@ -66,11 +70,11 @@
         优势:在获取bean对象时,注入数据是必须的操作,否则对象无法创建成功
         弊端:改变了bean对象的实例化方式.是我们在创建对象是如果用不到这些数据,也必须提供
     -->
-    <bean id="accountService" class="com.yxj.service.impl.AccountServiceImpl">
-        <constructor-arg name="name" value="泰斯特"></constructor-arg>
-        <constructor-arg name="age" value="18"></constructor-arg>
-        <constructor-arg name="birthday" ref="now"></constructor-arg>
-    </bean>
+<!--    <bean id="accountService" class="com.yxj.service.impl.AccountServiceImpl">-->
+<!--        <constructor-arg name="name" value="泰斯特"></constructor-arg>-->
+<!--        <constructor-arg name="age" value="18"></constructor-arg>-->
+<!--        <constructor-arg name="birthday" ref="now"></constructor-arg>-->
+<!--    </bean>-->
     <bean id="now" class="java.util.Date"></bean>
 
     <!--set方法注入  更常用的方式
@@ -124,4 +128,28 @@
             </props>
         </property>
     </bean>
+<!--    ********************************************************************-->
+    <!--目标对象-->
+    <bean id="accountService" class="com.yxj.service.impl.AccountServiceImpl"/>
+    <!--通知类-->
+    <bean id="logger" class="com.yxj.ui.Logger"/>
+
+    <!--配置aop-->
+    <aop:config>
+        <aop:pointcut id="pc" expression="execution(* com.yxj.service.impl.*.*(..))"/>
+        <!--配置切面，id是切面的唯一标识，ref时通知类的id-->
+        <aop:aspect id="logAdvice" ref="logger">
+            <!--配置通知
+                前置通知
+            <aop:before method="printLog" pointcut-ref="pc"></aop:before>
+            &lt;!&ndash;最终通知&ndash;&gt;
+            <aop:after method="printLog" pointcut-ref="pc"/>
+            &lt;!&ndash;异常通知&ndash;&gt;
+            <aop:after-throwing method="printLog" pointcut-ref="pc"/>
+            &lt;!&ndash;后置通知&ndash;&gt;
+            <aop:after-returning method="printLog" pointcut-ref="pc"/>-->
+            <aop:around method="aroundPrintLog" pointcut-ref="pc"/>
+        </aop:aspect>
+    </aop:config>
+
 </beans>

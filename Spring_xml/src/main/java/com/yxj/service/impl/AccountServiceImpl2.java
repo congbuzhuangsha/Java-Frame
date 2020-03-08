@@ -31,4 +31,14 @@ public class AccountServiceImpl2 implements IAccountService {
     public void saveAccount() {
         System.out.println("service中的saveAccount方法执行了。。。"+name+","+age+","+birthday);
     }
+
+    @Override
+    public void updateAccount(int i) {
+
+    }
+
+    @Override
+    public int deleteAccount() {
+        return 0;
+    }
 }

@@ -44,4 +44,14 @@ public class AccountServiceImpl3 implements IAccountService {
         System.out.println(myMap);
         System.out.println(myProps);
     }
+
+    @Override
+    public void updateAccount(int i) {
+
+    }
+
+    @Override
+    public int deleteAccount() {
+        return 0;
+    }
 }

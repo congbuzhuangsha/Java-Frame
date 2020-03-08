@@ -2,6 +2,7 @@ package com.yxj.dao.impl;
 
 import com.yxj.dao.IAccountDao;
 import com.yxj.domin.Account;
+import com.yxj.utils.ConnectionUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -17,9 +18,12 @@ import java.util.List;
  * @version: 1.0
  */
 @Repository("accountDao")
-public class AccountDao implements IAccountDao {
+public class AccountDaoImpl implements IAccountDao {
     @Autowired
     private QueryRunner runner;
+    //@Autowired
+    //private ConnectionUtils connectionUtils;
+
 
     /**
      * 查询所有
@@ -89,6 +93,29 @@ public class AccountDao implements IAccountDao {
             runner.update("delete from account where id=?", accountId);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 根据名称查账户
+     *
+     * @param accountName
+     * @return 如果有唯一的一个结果就返回，如果没有结果就返回null
+     * 如果结果集超过一个就抛异常
+     */
+    @Override
+    public Account findAccountByName(String accountName) {
+        try {
+            List<Account> accounts = runner.query( "select * from account where name=?", new BeanListHandler<Account>(Account.class), accountName);
+            if (accounts == null || accounts.size() == 0) {
+                return null;
+            }
+            if (accounts.size() > 1) {
+                throw new RuntimeException("结果集不唯一，数据有问题");
+            }
+            return accounts.get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException();
         }
     }
 }
