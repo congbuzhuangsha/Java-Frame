@@ -15,6 +15,7 @@
         <module>Spring_Annotation</module>
         <module>spring_iocxml_accounttest</module>
         <module>spring_iocanno_account</module>
+        <module>springmvc_01</module>
     </modules>
 
 </project>
