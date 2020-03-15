@@ -15,7 +15,7 @@
     <!--<result column="birthday" property="userBirthday"/>-->
     <!--    </resultMap>-->
     <!--定义user的resultMap-->
-    <resultMap id="userAccountMap" type="user">
+    <resultMap id="userAccountMap" type="userInfo">
         <id property="id" column="id"></id>
         <result property="username" column="username"></result>
         <result property="address" column="address"></result>
@@ -28,39 +28,39 @@
             <result column="money" property="money"></result>
         </collection>
     </resultMap>
-    <select id="findAll" resultType="user">
-        select * from user
+    <select id="findAll" resultType="userInfo">
+        select * from userInfo
     </select>
-    <insert id="saveUser" parameterType="user">
+    <insert id="saveUser" parameterType="userInfo">
         <!--配置插入操作后，获取插入数据的id-->
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select last_insert_id();
         </selectKey>
-        insert into user (username,address,sex,birthday)values (#{username},#{address},#{sex},#{birthday})
+        insert into userInfo (username,address,sex,birthday)values (#{username},#{address},#{sex},#{birthday})
     </insert>
-    <update id="updateUser" parameterType="user">
-        update user set username=#{username},address=#{address} where id=#{id}
+    <update id="updateUser" parameterType="userInfo">
+        update userInfo set username=#{username},address=#{address} where id=#{id}
     </update>
     <delete id="deleteUser" parameterType="Integer">
-        delete from user where id=#{uid}
+        delete from userInfo where id=#{uid}
     </delete>
     <!--***************************************************************************************-->
-    <select id="findById" parameterType="Integer" resultType="user">
-        select * from user where id=#{uid}
+    <select id="findById" parameterType="Integer" resultType="userInfo">
+        select * from userInfo where id=#{uid}
     </select>
-    <select id="findByName" parameterType="String" resultType="user">
-        select * from user where username like #{uname}
+    <select id="findByName" parameterType="String" resultType="userInfo">
+        select * from userInfo where username like #{uname}
     </select>
     <select id="findTotal" resultType="int">
-        select count(id) from user
+        select count(id) from userInfo
     </select>
     <select id="findUserByVo" parameterType="QueryVo" resultType="User">
-        select * from user where username like #{user.username}
+        select * from userInfo where username like #{userInfo.username}
     </select>
     <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-    <select id="findUserByCondition" resultType="user" parameterType="User">
-        <!--select * from user where 1=1-->
-        select * from user
+    <select id="findUserByCondition" resultType="userInfo" parameterType="User">
+        <!--select * from userInfo where 1=1-->
+        select * from userInfo
         <where>
             <if test="username != null">
                 and username=#{username}
@@ -70,8 +70,8 @@
             </if>
         </where>
     </select>
-    <select id="findUserInIds" resultType="user" parameterType="queryvo">
-        select * from user
+    <select id="findUserInIds" resultType="userInfo" parameterType="queryvo">
+        select * from userInfo
         <where>
             <if test="ids != null and ids.size()>0">
                 <foreach collection="ids" open="and id in (" close=")" item="uid" separator=",">
@@ -83,10 +83,10 @@
     <!--*******************************************************************-->
     <!--   立即加载-->
     <!--    <select id="findAccount" resultMap="userAccountMap">-->
-    <!--        select * from user u LEFT outer JOIN  account a on u.id=a.uid-->
+    <!--        select * from userInfo u LEFT outer JOIN  account a on u.id=a.uid-->
     <!--    </select>-->
     <!--    延迟加载-->
     <select id="findAccount" resultMap="userAccountMap">
-            select * from user
+            select * from userInfo
         </select>
 </mapper>

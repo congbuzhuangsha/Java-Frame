@@ -30,15 +30,15 @@
 <body>
 <h3>入门程序</h3>
 <%--<a href="hello">入门程序</a>--%>
-<a href="user/hello?username=1">RequestMapping注解</a><br/>
+<a href="userInfo/hello?username=1">RequestMapping注解</a><br/>
 
-<form action="/user/submit" method="post">
+<form action="/userInfo/submit" method="post">
     姓名：<input type="text" name="username"/><br/>
     密码：<input type="text" name="password"/><br/>
     金额：<input type="text" name="money"/><br/>
-    用户名称：<input type="text" name="user.uname"/><br/>
-    用户年龄：<input type="text" name="user.age"/><br/>
-    用户日期：<input type="text" name="user.date"/><br/>
+    用户名称：<input type="text" name="userInfo.uname"/><br/>
+    用户年龄：<input type="text" name="userInfo.age"/><br/>
+    用户日期：<input type="text" name="userInfo.date"/><br/>
 
     <%--用户名称：<input type="text" name="list[0].uname"/>
     用户年龄：<input type="text" name="list[0].age"/>
@@ -51,21 +51,21 @@
     用户年龄：<input type="text" name="map[two].age"/>--%>
     <input type="submit" value="提交"/><br/>
 </form>
-<a href="user/testServlet">Servlet原生API</a><br/>
+<a href="userInfo/testServlet">Servlet原生API</a><br/>
 <%--*************************常用注解******************************************--%>
-<a href="user/requestParamTest?name=1">RequestParam注解</a><br/>
-<form action="user/requestBodyTest" method="post">
+<a href="userInfo/requestParamTest?name=1">RequestParam注解</a><br/>
+<form action="userInfo/requestBodyTest" method="post">
     姓名：<input type="text" name="username"/><br/>
     密码：<input type="text" name="password"/><br/>
     金额：<input type="text" name="money"/><br/>
     <input type="submit" value="提交"/><br/>
 </form>
-<a href="user/pathVariableTest/10">PathVariableTest注解</a><br/>
-<form action="/user/modelAttributeTest" method="post">
+<a href="userInfo/pathVariableTest/10">PathVariableTest注解</a><br/>
+<form action="/userInfo/modelAttributeTest" method="post">
     用户名称：<input type="text" name="uname"/><br/>
     用户年龄：<input type="text" name="age"/><br/>
     <input type="submit" value="提交"/><br/>
 </form>
-<a href="user/sessionAttributes">sessionAttributesTest注解</a><br/>
+<a href="userInfo/sessionAttributes">sessionAttributesTest注解</a><br/>
 </body>
 </html>

@@ -30,8 +30,8 @@
 </head>
 
 <body>
-<a href="user/testString">testString</a><br>
-<a href="user/testVoid">testVoid</a><br>
-<a href="user/testException">testException</a><br>
+<a href="userInfo/testString">testString</a><br>
+<a href="userInfo/testVoid">testVoid</a><br>
+<a href="userInfo/testException">testException</a><br>
 </body>
 </html>

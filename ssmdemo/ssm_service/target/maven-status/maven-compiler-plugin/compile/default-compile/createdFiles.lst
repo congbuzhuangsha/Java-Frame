@@ -1,0 +1,10 @@
+com\yxj\ssmdemo\service\IUserService.class
+com\yxj\ssmdemo\service\impl\OrdersServiceImpl.class
+com\yxj\ssmdemo\service\impl\ProductServiceImpl.class
+com\yxj\ssmdemo\service\impl\RoleServiceImpl.class
+com\yxj\ssmdemo\service\IProductService.class
+com\yxj\ssmdemo\service\IOrdersService.class
+com\yxj\ssmdemo\service\impl\UserServiceImpl.class
+com\yxj\ssmdemo\service\impl\PermissionServiceImpl.class
+com\yxj\ssmdemo\service\IPermissionService.class
+com\yxj\ssmdemo\service\IRoleService.class

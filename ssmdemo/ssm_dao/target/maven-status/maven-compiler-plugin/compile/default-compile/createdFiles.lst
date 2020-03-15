@@ -1,0 +1,7 @@
+com\yxj\ssmdemo\dao\IRoleDao.class
+com\yxj\ssmdemo\dao\IUserDao.class
+com\yxj\ssmdemo\dao\IMemberDao.class
+com\yxj\ssmdemo\dao\IOrdersDao.class
+com\yxj\ssmdemo\dao\IProductDao.class
+com\yxj\ssmdemo\dao\ITravellerDao.class
+com\yxj\ssmdemo\dao\IPermissionDao.class

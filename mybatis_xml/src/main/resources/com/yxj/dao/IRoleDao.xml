@@ -7,7 +7,7 @@
         <id property="roleId" column="rid"></id>
         <result property="roleName" column="role_name"></result>
         <result property="roleDesc" column="role_desc"></result>
-        <collection property="users" ofType="user">
+        <collection property="userInfos" ofType="userInfo">
             <id column="id" property="id"></id>
             <result column="username" property="username"></result>
             <result column="address" property="address"></result>
@@ -18,6 +18,6 @@
     <select id="findAll" resultMap="roleMap">
         select u.*,r.id as rid,r.role_name,r.role_desc from role r
          left outer join user_role ur on r.id=ur.rid
-         left outer join user u on u.id = ur.uid
+         left outer join userInfo u on u.id = ur.uid
     </select>
 </mapper>

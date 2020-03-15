@@ -1,0 +1,5 @@
+com\yxj\ssmdemo\controller\RoleController.class
+com\yxj\ssmdemo\controller\ProductController.class
+com\yxj\ssmdemo\controller\PermissionController.class
+com\yxj\ssmdemo\controller\OrdersController.class
+com\yxj\ssmdemo\controller\UserController.class

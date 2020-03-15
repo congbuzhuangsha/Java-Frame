@@ -1,0 +1,7 @@
+com\yxj\ssmdemo\domain\Member.class
+com\yxj\ssmdemo\domain\Permission.class
+com\yxj\ssmdemo\domain\Product.class
+com\yxj\ssmdemo\domain\Role.class
+com\yxj\ssmdemo\domain\Traveller.class
+com\yxj\ssmdemo\domain\Orders.class
+com\yxj\ssmdemo\domain\UserInfo.class

@@ -31,7 +31,7 @@
 
 <body>
     <h3>执行成功</h3>
-    ${user.uname}
+    ${userInfo.uname}
 <%--    ${msg}--%>
 <%--${sessionScope}--%>
 </body>

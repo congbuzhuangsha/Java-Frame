@@ -31,7 +31,7 @@
     <!--配置拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/user/*"/>
+            <mvc:mapping path="/userInfo/*"/>
             <bean class="com.yxj.interceptor.MyInterceptor"/>
         </mvc:interceptor>
 
